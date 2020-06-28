@@ -42,8 +42,8 @@ bool isEntryValid(int xPos, int yPos, int num, int matrix[9][9]) {
 		int xSquare = (xPos / 3) * 3;
 		int ySquare = (yPos / 3) * 3;
 
-		for (int y = ySquare; y < ySquare + 2; ++y) {
-			for (int x = xSquare; x < xSquare + 2; ++x) {
+		for (int y = ySquare; y < ySquare + 3; ++y) {
+			for (int x = xSquare; x < xSquare + 3; ++x) {
 				if (matrix[y][x] == num) {
 					entryIsValid = false;
 					break;
@@ -55,7 +55,36 @@ bool isEntryValid(int xPos, int yPos, int num, int matrix[9][9]) {
 	return entryIsValid;
 }
 
+
+//barebones functions
+//we need to be able to pass the matrix in by value so that 
+//we don't permenantly edit the matrix when we use
+int fillSudokuBoard(int matrix[9][9]) {
+	bool boardFull = true;
+	for (int y = 0; y < 9; ++y) {
+		for (int x = 0; x < 9; ++x) {
+			if (matrix[y][x] == 0) {
+				boardFull = false;
+				for (int posNum = 1; posNum < 10; ++posNum) {
+					if (isEntryValid(x, y, posNum, matrix)) {
+						matrix[y][x] = posNum;
+						fillSudokuBoard(matrix);		
+					}
+				}
+			}
+		}
+	}
+	if (boardFull) {
+		printBoard(matrix);
+		return 1;
+	}
+	return 0;
+}
+
+
 int main (void) {
+	int x, y, num;
+
 	int matrix[9][9] = 
 		{{0,2,0,0,1,6,0,3,0},
 		 {0,0,5,3,0,0,0,0,4},
@@ -67,11 +96,20 @@ int main (void) {
 		 {7,0,0,0,0,9,3,0,0},
 		 {0,6,0,1,7,0,0,2,0}};
 
-   	printBoard(matrix);
+	fillSudokuBoard(matrix);
+   	// printBoard(matrix);
 
-	bool isValid = isEntryValid(1,1,1,matrix);
-	std::cout << "xPos: 1 | " << "yPos: 1 | " << "num: 1 | " << "isValid: " << ((isValid) ? "True" : "False") << std::endl;
-	return 1;
+	// std::cout << std::endl << "Enter the x coordinate of the number: ";
+	// std::cin >> x;
+
+	// std::cout << "Enter the y coordinate of the number: ";
+	// std::cin >> y;
+
+	// std::cout << "Enter the number: ";
+	// std::cin >> num;
+	// bool isValid = isEntryValid(x, y, num, matrix);
+	// std::cout << "xPos: " << x << " | " << "yPos: " << y << " | " << "num: " << num << " | " << "isValid: " << ((isValid) ? "True" : "False") << std::endl;
+	// return 1;
 }
 
 
