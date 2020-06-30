@@ -56,9 +56,7 @@ bool isEntryValid(int xPos, int yPos, int num, int matrix[9][9]) {
 }
 
 
-//barebones functions
-//we need to be able to pass the matrix in by value so that 
-//we don't permenantly edit the matrix when we use
+//This does not work, it is just a barebones example
 int fillSudokuBoard(int matrix[9][9]) {
 	bool boardFull = true;
 	for (int y = 0; y < 9; ++y) {
@@ -69,16 +67,18 @@ int fillSudokuBoard(int matrix[9][9]) {
 					if (isEntryValid(x, y, posNum, matrix)) {
 						matrix[y][x] = posNum;
 						fillSudokuBoard(matrix);		
+						matrix[y][x] = 0;
 					}
 				}
+				return 0;
 			}
 		}
 	}
-	if (boardFull) {
-		printBoard(matrix);
-		return 1;
-	}
-	return 0;
+	
+	printBoard(matrix);
+	std::cout << "Check for more solutions? Press Enter";
+	std::cin.get();
+	return 1;
 }
 
 
@@ -97,19 +97,6 @@ int main (void) {
 		 {0,6,0,1,7,0,0,2,0}};
 
 	fillSudokuBoard(matrix);
-   	// printBoard(matrix);
-
-	// std::cout << std::endl << "Enter the x coordinate of the number: ";
-	// std::cin >> x;
-
-	// std::cout << "Enter the y coordinate of the number: ";
-	// std::cin >> y;
-
-	// std::cout << "Enter the number: ";
-	// std::cin >> num;
-	// bool isValid = isEntryValid(x, y, num, matrix);
-	// std::cout << "xPos: " << x << " | " << "yPos: " << y << " | " << "num: " << num << " | " << "isValid: " << ((isValid) ? "True" : "False") << std::endl;
-	// return 1;
 }
 
 
