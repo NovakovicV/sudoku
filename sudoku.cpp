@@ -9,13 +9,6 @@ void printBoard(int matrix[9][9]) {
 	}
 }
 
-void printArray(int array[9]) {
-	for (int i = 0; i < 9; ++i) {
-		std::cout << array[i] << " ";
-	}
-	std::cout << std::endl;
-}
-
 void getColumn(int *colArray, int *colNum, int matrix[9][9]) {
 	for (int i = 0; i < 9; ++i) {
 		colArray[i] = matrix[i][*colNum];
@@ -74,7 +67,7 @@ int fillSudokuBoard(int matrix[9][9]) {
 			}
 		}
 	}
-	
+
 	printBoard(matrix);
 	std::cout << "Check for more solutions? Press Enter";
 	std::cin.get();
